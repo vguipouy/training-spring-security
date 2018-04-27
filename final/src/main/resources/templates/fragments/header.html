@@ -1,9 +1,10 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <div th:fragment="header-head">
-        <title>Spring training</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
+        <!-- Pull CSS and javascript dependencies from CDN -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
@@ -26,14 +27,25 @@
                 </ul>
 
                 <ul class="navbar-nav navbar-right mr-2">
-                    <li class="dropdown">
+                    <!-- Display user menu only if authenticated -->
+                    <li class="dropdown" sec:authorize="isAuthenticated()">
                         <a class="dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="oi oi-person" title="User" aria-hidden="true"></span>
-                            User
+
+                            <!-- Display current user name -->
+                            <span sec:authentication="name"></span>
+
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right mt-3" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">Logout</a>
+
+                            <!-- Logout link : Form is used to generate a POST request with CSRF token -->
+                            <a class="dropdown-item" href="javascript: document.logoutForm.submit()">Logout</a>
+
+                            <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                                <input hidden type="submit" value="Logout"/>
+                            </form>
+
                         </div>
                     </li>
                 </ul>
