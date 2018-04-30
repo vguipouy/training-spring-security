@@ -1,7 +1,15 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+>
 <head>
     <div th:replace="fragments/header :: header-head"/>
+    <script>
+    function count() {
+        $.get('employee/countByName/' + $('#name').val(), function( data ){alert(data);});
+    }
+    </script>
 </head>
 <body>
     <div th:replace="fragments/header :: header-nav"/>
@@ -10,7 +18,10 @@
     <div class="container mt-4">
         <h3 class="text-primary">Employees
             <span class="badge badge-primary" th:text="${#lists.size(employees)}">0</span>
-            <a role="button" class="btn btn-outline-primary" href="/employee/create">Add</a>
+            <a
+                    sec:authorize="hasRole('ROLE_ADMIN')"
+                    role="button" class="btn btn-outline-primary"
+                    href="/employee/create">Add</a>
         </h3>
 
         <table class="table">
@@ -35,6 +46,19 @@
                 </tr>
             </tbody>
         </table>
+
+        <div class="container mt-4">
+            <h4 class="text-primary">Count by name</h4>
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" name="name" id="name"/>
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-primary col-sm-3" onclick="count()">Count</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>

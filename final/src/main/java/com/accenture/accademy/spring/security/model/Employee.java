@@ -23,9 +23,10 @@ public class Employee {
         this.name = name;
     }
 
-    public Employee(String id, String name, String currentProjectId){
+    public Employee(String id, String name, String currentProjectId, String password){
         this(id, name);
         this.currentProjectId = currentProjectId;
+        this.password = password;
     }
 
     public String getId() {

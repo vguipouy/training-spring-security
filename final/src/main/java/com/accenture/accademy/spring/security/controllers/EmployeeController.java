@@ -6,6 +6,7 @@ import com.accenture.accademy.spring.security.repositories.ProjectRepository;
 import com.accenture.accademy.spring.security.services.EmployeeService;
 import org.h2.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -90,5 +91,12 @@ public class EmployeeController {
         } else {
             return "redirect:/";
         }
+    }
+
+    @GetMapping("/countByName/{name}")
+    public @ResponseBody
+    ResponseEntity<Integer> update(@ModelAttribute("name") String name) {
+        Integer count = employeeService.countByName(name);
+        return ResponseEntity.ok(count);
     }
 }

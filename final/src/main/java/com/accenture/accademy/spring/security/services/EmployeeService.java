@@ -30,6 +30,7 @@ public class EmployeeService {
      *
      * @param repository        Injected employee repository
      * @param projectRepository Injected project repository
+     * @param jdbcTemplate      JDBC template to perform SQL queries
      */
     @Autowired
     public EmployeeService(EmployeeRepository repository, ProjectRepository projectRepository, JdbcTemplate jdbcTemplate) {
@@ -115,7 +116,7 @@ public class EmployeeService {
      *
      * @return Number of employees
      */
-    public Integer countByName(String name){
+    public Integer countByName(String name) {
         StringBuilder queryBuilder = new StringBuilder();
         queryBuilder.append("SELECT count(*) from EMPLOYEE WHERE name = '");
         queryBuilder.append(name);

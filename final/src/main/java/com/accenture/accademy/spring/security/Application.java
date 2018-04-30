@@ -26,18 +26,18 @@ public class Application {
                 Project project2 = new Project("parrotscompany", "Parrots company");
                 project2 = projectRepository.save(project2);
 
-                Employee employee1 = new Employee("john.doe", "John Doe", project1.getId());
+                Employee employee1 = new Employee("john.doe", "John Doe", project1.getId(),"password");
                 employee1 = employeeRepository.save(employee1);
-                Employee employee2 = new Employee("jahn.dae", "Jahn Dae", project1.getId());
+                Employee employee2 = new Employee("jahn.dae", "Jahn Dae", project1.getId(),"password");
                 employee2 = employeeRepository.save(employee2);
-                Employee employee3 = new Employee("jehn.dee", "Jehn Dee", project1.getId());
+                Employee employee3 = new Employee("jehn.dee", "Jehn Dee", project1.getId(),"password");
                 employee3 = employeeRepository.save(employee3);
 
-                Employee employee4 = new Employee("jihn.die", "Jihn Die", project2.getId());
+                Employee employee4 = new Employee("jihn.die", "Jihn Die", project2.getId(),"password");
                 employee4 = employeeRepository.save(employee4);
-                Employee employee5 = new Employee("juhn.due", "Juhn Due", project2.getId());
+                Employee employee5 = new Employee("juhn.due", "Juhn Due", project2.getId(),"password");
                 employee5 = employeeRepository.save(employee5);
-                Employee employee6 = new Employee("jyhn.dye", "Jyhn Dye", project2.getId());
+                Employee employee6 = new Employee("jyhn.dye", "Jyhn Dye", project2.getId(),"password");
                 employee6 = employeeRepository.save(employee6);
 
                 project1.setLead(employee1);
