@@ -7,6 +7,7 @@ import com.accenture.accademy.spring.security.repositories.ProjectRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,19 +21,22 @@ public class EmployeeService {
     private static Logger LOGGER = LoggerFactory.getLogger(EmployeeService.class);
 
     private final EmployeeRepository repository;
-
     private final ProjectRepository projectRepository;
+    private final JdbcTemplate jdbcTemplate;
+
 
     /**
      * Constructor.
      *
      * @param repository        Injected employee repository
      * @param projectRepository Injected project repository
+     * @param jdbcTemplate      JDBC template to perform SQL queries
      */
     @Autowired
-    public EmployeeService(EmployeeRepository repository, ProjectRepository projectRepository) {
+    public EmployeeService(EmployeeRepository repository, ProjectRepository projectRepository, JdbcTemplate jdbcTemplate) {
         this.repository = repository;
         this.projectRepository = projectRepository;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     /**
@@ -102,5 +106,22 @@ public class EmployeeService {
         );
 
         repository.delete(employee);
+    }
+
+    /**
+     * Count employees having a specific name.
+     * Demonstration of SQL injection.
+     * Try with name :
+     * toto' or 1=1
+     *
+     * @return Number of employees
+     */
+    public Integer countByName(String name) {
+        StringBuilder queryBuilder = new StringBuilder();
+        queryBuilder.append("SELECT count(*) from EMPLOYEE WHERE name LIKE '");
+        queryBuilder.append(name);
+        queryBuilder.append("'");
+
+        return jdbcTemplate.queryForObject(queryBuilder.toString(), Integer.class);
     }
 }

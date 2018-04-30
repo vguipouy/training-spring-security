@@ -2,6 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="fragments/header :: header-head"/>
+    <script>
+    function count() {
+        $.get('employee/countByName/' + $('#name').val(), function( data ){alert(data);});
+    }
+    </script>
 </head>
 <body>
     <div th:replace="fragments/header :: header-nav"/>
@@ -35,6 +40,20 @@
                 </tr>
             </tbody>
         </table>
+
+
+        <div class="container mt-4">
+                <h4 class="text-primary">Count by name</h4>
+
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" name="name" id="name"/>
+                </div>
+
+                <div class="text-center">
+                    <button class="btn btn-primary col-sm-3" onclick="count()">Count</button>
+                </div>
+        </div>
     </div>
 </body>
 </html>
