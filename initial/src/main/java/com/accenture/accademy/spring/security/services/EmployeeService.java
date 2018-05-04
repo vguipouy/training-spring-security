@@ -26,7 +26,7 @@ public class EmployeeService {
 
 
     /**
-     * Constructor.
+     * Constructor with beans injection.
      *
      * @param repository        Injected employee repository
      * @param projectRepository Injected project repository
@@ -112,7 +112,7 @@ public class EmployeeService {
      * Count employees having a specific name.
      * Demonstration of SQL injection.
      * Try with name :
-     * toto' or 1=1
+     * toto' or 1=1 or name = '
      *
      * @return Number of employees
      */

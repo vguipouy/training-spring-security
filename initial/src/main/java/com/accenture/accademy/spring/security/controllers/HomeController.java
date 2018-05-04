@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * Home page controller providing the main view.
+ */
 @Controller
 public class HomeController {
     private final EmployeeService employeeService;

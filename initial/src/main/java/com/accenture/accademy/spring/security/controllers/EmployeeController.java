@@ -16,12 +16,20 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Spring MVC controller providing pages to manage employees.
+ */
 @Controller
 @RequestMapping("/employee")
 public class EmployeeController {
     private final EmployeeService employeeService;
     private final ProjectRepository projectRepository;
 
+    /**
+     * Constructor injection example.
+     * @param employeeService
+     * @param projectRepository
+     */
     @Autowired
     public EmployeeController(EmployeeService employeeService, ProjectRepository projectRepository) {
         this.employeeService = employeeService;
