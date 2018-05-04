@@ -1,64 +1,70 @@
 <!DOCTYPE HTML>
-<html
-        xmlns:th="http://www.thymeleaf.org"
-        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
->
+<!-- Namespace for Securty extension for thymeleaf is added enabling the use of sec:authentication and sec:authorize-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
+    <!-- Include header, including javascript and CSS files. -->
     <div th:replace="fragments/header :: header-head"/>
+
+    <!-- Additional script -->
     <script>
-    function count() {
-        $.get('employee/countByName/' + $('#name').val(), function( data ){alert(data);});
-    }
+        function count() {
+            $.get('employee/countByName/' + $('#name').val(), function( data ){alert(data);});
+        }
     </script>
 </head>
 <body>
-    <div th:replace="fragments/header :: header-nav"/>
+<!-- Include navigation bar in the page. -->
+<div th:replace="fragments/header :: header-nav"/>
 
+<!-- Page content -->
+<div class="container mt-4">
+    <h3 class="text-primary">Employees
+        <span class="badge badge-primary" th:text="${#lists.size(employees)}">0</span>
 
+        <!-- Display Add button only for admins users -->
+        <a sec:authorize="hasRole('ROLE_ADMIN')"
+                role="button" class="btn btn-outline-primary"
+                href="/employee/create">Add</a>
+    </h3>
+
+    <!-- Employees table -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Project</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee : ${employees}">
+            <th scope="row" th:text="${employee.id}">id</th>
+            <td th:text="${employee.name}">Name</td>
+            <td th:text="${employee.currentProjectId}">Project</td>
+            <td class="text-right">
+                <a role="button" class="btn btn-outline-primary" th:href="'/employee/read/'+${employee.id}">View</a>
+                <a role="button" class="btn btn-outline-primary" th:href="'/employee/update/'+${employee.id}">Edit</a>
+                <a role="button" class="btn btn-outline-primary" th:href="'/employee/delete/'+${employee.id}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Count by name form -->
     <div class="container mt-4">
-        <h3 class="text-primary">Employees
-            <span class="badge badge-primary" th:text="${#lists.size(employees)}">0</span>
-            <a
-                    sec:authorize="hasRole('ROLE_ADMIN')"
-                    role="button" class="btn btn-outline-primary"
-                    href="/employee/create">Add</a>
-        </h3>
+        <h4 class="text-primary">Count by name</h4>
 
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Name</th>
-                <th scope="col">Project</th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
-            <tbody>
-                <tr th:each="employee : ${employees}">
-                    <th scope="row" th:text="${employee.id}">id</th>
-                    <td th:text="${employee.name}">Name</td>
-                    <td th:text="${employee.currentProjectId}">Project</td>
-                    <td class="text-right">
-                        <a role="button" class="btn btn-outline-primary" th:href="'/employee/read/'+${employee.id}">View</a>
-                        <a role="button" class="btn btn-outline-primary" th:href="'/employee/update/'+${employee.id}">Edit</a>
-                        <a role="button" class="btn btn-outline-primary" th:href="'/employee/delete/'+${employee.id}">Delete</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" id="name"/>
+        </div>
 
-        <div class="container mt-4">
-            <h4 class="text-primary">Count by name</h4>
-
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" name="name" id="name"/>
-            </div>
-
-            <div class="text-center">
-                <button class="btn btn-primary col-sm-3" onclick="count()">Count</button>
-            </div>
+        <div class="text-center">
+            <button class="btn btn-primary col-sm-3" onclick="count()">Count</button>
         </div>
     </div>
+</div>
 </body>
 </html>

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Home page controller providing the main view.
@@ -15,16 +14,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class HomeController {
     private final EmployeeService employeeService;
 
+    /**
+     * Constructor injection of employee service.
+     *
+     * @param employeeService Employee service providing the list of employees
+     */
     @Autowired
-    public HomeController(EmployeeService employeeService){
+    public HomeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
     @GetMapping("/")
     public String home(Model model) {
+        // Add list of employees as a model variable to enable to print them on the page
         Iterable<Employee> employees = employeeService.findAll();
         model.addAttribute("employees", employees);
 
+        // Render home.html template
         return "home";
     }
 }

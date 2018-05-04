@@ -16,12 +16,12 @@ public class EncoderTest {
         String password = "password";
 
         // No encoder
-       /* PasswordEncoder encoder = NoOpPasswordEncoder.getInstance();
+        PasswordEncoder encoder = NoOpPasswordEncoder.getInstance();
         String encodedPassword = encoder.encode(password);
-        System.out.println("No encoding " + encodedPassword);
+        System.out.println("No encoding: " + encodedPassword);
         System.out.println("");
 
-        // MD5 encoder
+        // MD4 encoder
         encoder = new Md4PasswordEncoder();
         encodedPassword = encoder.encode(password);
         System.out.println("MD4 " + encodedPassword);
@@ -34,6 +34,6 @@ public class EncoderTest {
         System.out.println("");
 
         String providedPassword = "password";
-        System.out.println("Is password valid ? " + encoder.matches(providedPassword, encodedPassword));*/
+        System.out.println("Is password valid ? " + encoder.matches(providedPassword, encodedPassword));
     }
 }

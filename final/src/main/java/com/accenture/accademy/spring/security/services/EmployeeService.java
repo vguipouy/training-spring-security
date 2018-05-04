@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -85,6 +87,8 @@ public class EmployeeService {
      *
      * @param employee Employee to save.
      */
+    // Exemple of usage of @Secured
+    @Secured("ROLE_ADMIN")
     public Employee save(Employee employee) {
         LOGGER.info("Saving employee {}", employee.toString());
         return repository.save(employee);
@@ -95,6 +99,8 @@ public class EmployeeService {
      *
      * @param employee Employee to delete.
      */
+    // Exemple of usage of @PreAuthorize  equivalent to @Secured("ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void delete(Employee employee) {
         LOGGER.info("Deleting employee {}", employee.toString());
 

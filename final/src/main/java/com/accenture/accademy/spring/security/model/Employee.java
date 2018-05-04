@@ -1,10 +1,17 @@
 package com.accenture.accademy.spring.security.model;
 
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+/**
+ * Employee entity which will be persisted in the database.
+ * Entity annotation defines the class as a persisted Entity.
+ * Default table name is class name : EMPLOYEE
+ */
 @Entity
 public class Employee {
+    // @Id annotation defines the entity identifier, similar to primary key in a table
     @Id
     private String id;
 
@@ -14,16 +21,16 @@ public class Employee {
 
     private String currentProjectId;
 
-    public Employee(){
+    public Employee() {
     }
 
-    public Employee(String id, String name){
+    public Employee(String id, String name) {
         this();
         this.id = id;
         this.name = name;
     }
 
-    public Employee(String id, String name, String currentProjectId, String password){
+    public Employee(String id, String name, String currentProjectId, String password) {
         this(id, name);
         this.currentProjectId = currentProjectId;
         this.password = password;
